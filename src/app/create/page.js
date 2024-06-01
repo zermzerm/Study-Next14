@@ -1,6 +1,8 @@
 "use client";
 
-//app 라우터에서는 useRouter를 next/navigation에서 가져온다
+// app 라우터에서는 useRouter를 next/navigation에서 가져온다
+// 클라이언트 컴포넌트에서는 환경변수 바로 받아올 수 없다 => 환경변수는 서버 컴포넌트에서만 접속 가능
+// => 클라이언트에서도 쓰려면 환경변수 이름 앞에 NEXT_PUBLIC_를 붙여야된다
 import { useRouter } from "next/navigation";
 
 export default function Create() {
@@ -18,7 +20,7 @@ export default function Create() {
           },
           body: JSON.stringify({ title, body }),
         };
-        fetch(`http://localhost:9999/topics`, options)
+        fetch(process.env.NEXT_PUBLIC_API_URL + `topics`, options)
           .then((res) => res.json())
           .then((result) => {
             console.log(result);
